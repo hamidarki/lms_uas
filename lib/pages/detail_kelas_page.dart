@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lms/pages/materi_page.dart';
 
 class DetailKelasPage extends StatefulWidget {
   final String namaMatakuliah;
@@ -115,17 +116,18 @@ class _DetailKelasPageState extends State<DetailKelasPage> with SingleTickerProv
       itemCount: 6,
       itemBuilder: (context, index) {
         int meeting = index + 1;
+        String topic = 'Pembahasan Minggu Ke-$meeting';
         return ExpansionTile(
           leading: CircleAvatar(
             backgroundColor: Colors.deepPurple.withOpacity(0.1),
             child: Text('$meeting', style: const TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold)),
           ),
           title: Text('Pertemuan $meeting', style: const TextStyle(fontWeight: FontWeight.bold)),
-          subtitle: Text('Topik Pembahasan Minggu Ke-$meeting'),
+          subtitle: Text(topic),
           children: [
-            _buildResourceItem(Icons.picture_as_pdf, 'Modul Materi Pertemuan $meeting.pdf', 'File PDF'),
-            _buildResourceItem(Icons.language, 'Link Referensi Tambahan', 'URL Website'),
-            _buildResourceItem(Icons.play_circle_fill, 'Video Pembelajaran Interaktif', 'Konten Interaktif'),
+            _buildResourceItem('Modul Materi Pertemuan $meeting.pdf', topic, Icons.picture_as_pdf),
+            _buildResourceItem('Video Pembelajaran Pertemuan $meeting', topic, Icons.play_circle_fill),
+            _buildResourceItem('Lampiran Materi', topic, Icons.attachment),
           ],
         );
       },
@@ -152,12 +154,22 @@ class _DetailKelasPageState extends State<DetailKelasPage> with SingleTickerProv
     );
   }
 
-  Widget _buildResourceItem(IconData icon, String title, String type) {
+  Widget _buildResourceItem(String title, String topic, IconData icon) {
     return ListTile(
       leading: Icon(icon, color: Colors.deepPurple, size: 20),
       title: Text(title, style: const TextStyle(fontSize: 14)),
-      trailing: const Icon(Icons.download, size: 18, color: Colors.grey),
-      onTap: () {},
+      trailing: const Icon(Icons.chevron_right, size: 18, color: Colors.grey),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MateriPage(
+              judul: title,
+              deskripsi: 'Materi ini membahas secara mendalam mengenai $topic. Silakan pelajari file dan video yang tersedia di bawah ini.',
+            ),
+          ),
+        );
+      },
     );
   }
 
