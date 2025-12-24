@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lms/pages/materi_page.dart';
+import 'package:lms/pages/tugas_page.dart';
 
 class DetailKelasPage extends StatefulWidget {
   final String namaMatakuliah;
@@ -138,8 +139,40 @@ class _DetailKelasPageState extends State<DetailKelasPage> with SingleTickerProv
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        _buildActionCard(Icons.assignment_outlined, 'Tugas Pendahuluan', 'Deadline: 28 Des 2025', Colors.orange),
-        _buildActionCard(Icons.assignment_turned_in, 'Proyek Tengah Semester', 'Selesai', Colors.green),
+        _buildActionCard(
+          Icons.assignment_outlined,
+          'Tugas Pendahuluan',
+          'Deadline: 28 Des 2025',
+          Colors.orange,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const TugasPage(
+                  judul: 'Tugas Pendahuluan',
+                  deadline: '28 Des 2025, 23:59 WIB',
+                ),
+              ),
+            );
+          },
+        ),
+        _buildActionCard(
+          Icons.assignment_turned_in,
+          'Proyek Tengah Semester',
+          'Selesai',
+          Colors.green,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const TugasPage(
+                  judul: 'Proyek Tengah Semester',
+                  deadline: 'Sudah Berakhir',
+                ),
+              ),
+            );
+          },
+        ),
       ],
     );
   }
@@ -173,7 +206,7 @@ class _DetailKelasPageState extends State<DetailKelasPage> with SingleTickerProv
     );
   }
 
-  Widget _buildActionCard(IconData icon, String title, String status, Color color) {
+  Widget _buildActionCard(IconData icon, String title, String status, Color color, {VoidCallback? onTap}) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
@@ -181,7 +214,7 @@ class _DetailKelasPageState extends State<DetailKelasPage> with SingleTickerProv
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
         subtitle: Text(status),
         trailing: const Icon(Icons.chevron_right),
-        onTap: () {},
+        onTap: onTap,
       ),
     );
   }
