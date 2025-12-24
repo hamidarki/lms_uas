@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lms/pages/materi_page.dart';
 import 'package:lms/pages/tugas_page.dart';
+import 'package:lms/pages/kuis_page.dart';
 
 class DetailKelasPage extends StatefulWidget {
   final String namaMatakuliah;
@@ -181,8 +182,29 @@ class _DetailKelasPageState extends State<DetailKelasPage> with SingleTickerProv
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        _buildActionCard(Icons.timer, 'Kuis Minggu 4', 'Durasi: 30 Menit', Colors.blue),
-        _buildActionCard(Icons.lock, 'Ujian Akhir Semester', 'Terkunci', Colors.grey),
+        _buildActionCard(
+          Icons.timer,
+          'Kuis Minggu 4',
+          'Durasi: 30 Menit',
+          Colors.blue,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const KuisPage(
+                  judul: 'Kuis Minggu 4',
+                  durasi: '30 Menit',
+                ),
+              ),
+            );
+          },
+        ),
+        _buildActionCard(
+          Icons.lock,
+          'Ujian Akhir Semester',
+          'Terkunci',
+          Colors.grey,
+        ),
       ],
     );
   }
