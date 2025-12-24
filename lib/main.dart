@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lms/pages/home_page.dart';
 import 'package:lms/pages/kelas_page.dart';
 import 'package:lms/pages/profil_page.dart';
+import 'package:lms/pages/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,11 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'LMS App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const BottomNavigation(),
+      home: const LoginPage(),
     );
   }
 }
