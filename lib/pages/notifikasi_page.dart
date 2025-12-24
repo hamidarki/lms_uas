@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lms/pages/detail_pengumuman_page.dart';
 
 class NotifikasiPage extends StatelessWidget {
   const NotifikasiPage({super.key});
@@ -55,6 +56,19 @@ class NotifikasiPage extends StatelessWidget {
             time: '24 Desember 2025',
             admin: 'Admin IT Central',
             isRead: false,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DetailPengumumanPage(
+                    title: 'Maintenance LMS',
+                    admin: 'Admin IT Central',
+                    dateTime: 'Rabu, 24 Desember 2025 - 08:00 WIB',
+                    content: 'Yth. Seluruh Sivitas Akademika,\n\nKami informasikan bahwa akan dilakukan pemeliharaan rutin pada sistem LMS (Learning Management System) untuk meningkatkan stabilitas dan performa akses materi pembelajaran.\n\nSelama proses ini berlangsung, kemungkinan akan terjadi perlambatan akses pada fitur upload tugas dan kuis. Kami menyarankan Anda untuk menyelesaikan aktivitas penting sebelum jadwal pemeliharaan dimulai.\n\nMohon maaf atas ketidaknyamanan yang ditimbulkan.',
+                  ),
+                ),
+              );
+            },
           ),
           _buildNotificationItem(
             context,
@@ -65,6 +79,19 @@ class NotifikasiPage extends StatelessWidget {
             time: '26 Desember 2025',
             admin: 'SysAdmin',
             isRead: false,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DetailPengumumanPage(
+                    title: 'Jadwal Downtime Server',
+                    admin: 'SysAdmin',
+                    dateTime: 'Jumat, 26 Desember 2025 - 00:00 WIB',
+                    content: 'Pemberitahuan Penting:\n\nTim IT akan melakukan upgrade storage server pusat yang memerlukan pemadaman total (total downtime) pada seluruh layanan LMS.\n\nEstimasi durasi downtime: 4 Jam (00:00 - 04:00 WIB).\n\nSeluruh data tetap aman, namun akses ke website dan mobile app akan terputus sepenuhnya selama periode tersebut. Harap menyesuaikan jadwal belajar Anda.',
+                  ),
+                ),
+              );
+            },
           ),
           _buildNotificationItem(
             context,
@@ -105,6 +132,7 @@ class NotifikasiPage extends StatelessWidget {
     required String time,
     String? admin,
     bool isRead = false,
+    VoidCallback? onTap,
   }) {
     return Container(
       color: isRead ? Colors.transparent : Colors.deepPurple.withOpacity(0.05),
@@ -167,9 +195,7 @@ class NotifikasiPage extends StatelessWidget {
             ),
           ],
         ),
-        onTap: () {
-          // Action when notification is tapped
-        },
+        onTap: onTap,
       ),
     );
   }

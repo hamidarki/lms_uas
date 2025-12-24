@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lms/pages/notifikasi_page.dart';
+import 'package:lms/pages/detail_pengumuman_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -53,7 +54,7 @@ class HomePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     const Text(
-                      'Nama Lengkap Mahasiswa',
+                      'Hamidarki',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -92,8 +93,10 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               _buildAnnouncementCard(
-                'Pengumuman Penting',
-                'Jadwal ujian semester ganjil telah dirilis. Silakan cek di halaman jadwal.',
+                context,
+                'Jadwal Ujian Semester',
+                'Jadwal ujian semester ganjil telah dirilis. Silakan cek di halaman jadwal secara berkala untuk perubahan mendadak.',
+                'Admin Akademik',
                 '12 Des 2025',
               ),
 
@@ -119,7 +122,7 @@ class HomePage extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(title),
-        subtitle: Text('Batas akhir: \$dueDate'),
+        subtitle: Text('Batas akhir: $dueDate'),
         trailing: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
@@ -140,38 +143,71 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildAnnouncementCard(String title, String content, String date) {
+  Widget _buildAnnouncementCard(BuildContext context, String title, String content, String admin, String date) {
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.campaign, color: Colors.orange[600]),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 16,
+      clipBehavior: Clip.antiAlias, // Ensures InkWell splash is contained
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailPengumumanPage(
+                title: title,
+                admin: admin,
+                dateTime: '$date - 09:00 WIB',
+                content: content,
+              ),
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.campaign, color: Colors.orange[600]),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    date,
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                content,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+              ),
+              const SizedBox(height: 8),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    'Baca Selengkapnya',
+                    style: TextStyle(
+                      color: Colors.deepPurple,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-                Text(
-                  date,
-                  style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              content,
-              style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-            ),
-          ],
+                  Icon(Icons.chevron_right, size: 16, color: Colors.deepPurple),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
