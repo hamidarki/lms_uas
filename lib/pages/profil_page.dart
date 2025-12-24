@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lms/pages/edit_profil_page.dart';
 
 class ProfilPage extends StatelessWidget {
   const ProfilPage({super.key});
@@ -62,7 +63,12 @@ class ProfilPage extends StatelessWidget {
             _buildSectionTitle(context, 'Menu Utama'),
             _buildMenuItem(context, Icons.info_outline, 'Informasi User', () {}),
             _buildMenuItem(context, Icons.history, 'Aktivitas Login', () {}),
-            _buildMenuItem(context, Icons.edit_note, 'Edit Profile', () {}),
+            _buildMenuItem(context, Icons.edit_note, 'Edit Profile', () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const EditProfilPage()),
+              );
+            }),
             const Divider(indent: 16, endIndent: 16),
             _buildMenuItem(context, Icons.logout, 'Log Out', () {}, isDestructive: true),
             
